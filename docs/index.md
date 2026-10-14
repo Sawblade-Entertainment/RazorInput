@@ -1,58 +1,57 @@
-# About
-**See installation tab for setting things up**
+# Razor Input
 
-Nami is a real-time 2D wave simulation module for Roblox built on EditableMesh. It simulates wave propagation using the discrete wave equation and renders the result as a deformable water surface.
+Dead simple input handling for Roblox.
 
-# The Math
+## Installation
 
-The 2D wave equation is given by:
+Install via Wally:
 
-$$
-\frac{\partial^2 u}{\partial t^2}
-=
-c^2 \left(
-\frac{\partial^2 u}{\partial x^2}
-+
-\frac{\partial^2 u}{\partial z^2}
-\right)
-$$
+```toml
+RazorInput = "vibeonline/razorinput@0.1.0"
+```
 
-Where u(x,z,t) is a function of water height at point (x,z) during time t.
-
-The terms to the right resemble the curvature of the surface and are approximated with central finite differences. The second time derivative is then solved using Verlet integration:
-
-$$
-u_{t+\Delta t} = 2u_t - u_{t-\Delta t} + a_t \Delta t^2
-$$
-
-# Complete Example
+## Quick Start
 
 ```lua
-local Nami = require(script.NamiFinal)
-local ocean: Nami.WaterSurface = Nami.create(50,50, 1, 30, 1/50, 0.98,1)
-ocean:initialise(workspace)
-ocean.meshPart.Material = Enum.Material.Glass
+local RazorInput = require(path.to.RazorInput)
 
-game.RunService.RenderStepped:Connect(function(dt)
-	local t = os.clock()
-	if ocean:step(dt) then
-		local z,x = ocean:worldPositionToMesh(math.sin((2*math.pi)/2 * t)*10, math.cos((2*math.pi)/2 * t)*10)
-		ocean:pointSplash(z,x,5)
-	end
+-- Bind a simple action to a key
+RazorInput:bindAction(function(pressed)
+    print("Space pressed:", pressed)
+end, "Space")
+
+-- Bind an axis (e.g., Movement)
+local moveAxis = RazorInput.createAxis("W", "S", "A", "D")
+RazorInput:bindAxis(function(pressed, direction)
+    print("Moving direction:", direction)
+end, moveAxis)
+
+-- Connect to UserInputService
+local UserInputService = game:GetService("UserInputService")
+UserInputService.InputBegan:Connect(function(input)
+    RazorInput:input(input)
+end)
+UserInputService.InputEnded:Connect(function(input)
+    RazorInput:input(input)
 end)
 ```
 
----
+## API Reference
 
-# WaterSurface API
+### `InputController`
 
-| Method |
-|----------|
-| `initialise(parent)` |
-| `step(deltaTime)` |
-| `pointSplash(z, x, height)` |
-| `smoothSplash()` |
-| `normalAt(z, x)` |
-| `heightAt(z, x)` |
-| `worldPositionToMesh(z, x)` |
-| `destroy()` |
+#### `createAxis(up: string, down: string, left: string, right: string): { string }`
+Creates an axis definition for 4-way movement.
+- **Returns**: A table containing the key names.
+
+#### `bindAxis(action: (pressed: boolean, direction: Vector3) -> (), ...: { string } | string)`
+Binds one or more inputs to an axis action.
+- If a table (from `createAxis`) is passed, it calculates a `Vector3` direction based on the pressed keys of that axis.
+- `action` is called with `(pressed, direction)`.
+
+#### `bindAction(action: (pressed: boolean, position: Vector3?) -> (), ...: string)`
+Binds one or more keys to a specific action.
+- **action**: A callback function receiving `pressed` (boolean) and the input `position` (Vector3).
+
+#### `input(inp: InputObject)`
+The entry point for processing input. This should be called from `UserInputService.InputBegan` and `UserInputService.InputEnded`.
