@@ -1,5 +1,6 @@
 # Razor Input
 Dead simple input handling
+[Documentation](https://sawblade-entertainment.github.io/RazorInput/)
 
 Download with wally:
 ```
