@@ -1,0 +1,11 @@
+[Package]
+  Name = "vibeonline/razorinput"
+  Description = "Oversimplifying input handlers"
+  Version = "0.1.0"
+  License = "MIT"
+
+[Tools]
+
+[Packages]
+StyLua = "JohnnyMorganz/StyLua@2.6.0"
+selene = "Kampfkarren/selene@0.32.0"
