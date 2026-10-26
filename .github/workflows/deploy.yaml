@@ -92,10 +92,12 @@ jobs:
         run: chainlink install
 
       - name: Check with Selene
-        run: "$HOME/.chainlink/bin/selene" .
+        shell: bash
+        run: selene .
 
       - name: Check formatting with Stylua
-        run: "$HOME/.chainlink/bin/stylua" --check .
+        shell: bash
+        run: stylua --check .
 
       - name: ChainLink Publish
         shell: bash
