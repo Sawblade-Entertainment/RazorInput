@@ -7,7 +7,7 @@ DisableBootstrap = true
   License = "MIT"
 
 [Tools]
+StyLua = "JohnnyMorganz/StyLua@2.6.0"
+Selene = "kampfkarren/selene@0.32.0"
 
 [Packages]
-StyLua = "JohnnyMorganz/StyLua@2.6.0"
-selene = "Kampfkarren/selene@0.32.0"
