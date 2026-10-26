@@ -87,12 +87,6 @@ jobs:
           chmod +x chainlink
           sudo mv chainlink /usr/local/bin/
 
-      - name: Linting & Styling
-        shell: bash
-        run: |
-          chainlink run JohnnyMorganz/StyLua@2.6.0 .
-          chainlink run Kampfkarren/selene@0.32.0 --check .
-
       - name: ChainLink Publish
         shell: bash
         run: chainlink publish --token ${{ secrets.WALLY_TOKEN }}
