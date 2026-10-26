@@ -8,6 +8,6 @@ DisableBootstrap = true
 
 [Tools]
 StyLua = "JohnnyMorganz/StyLua@2.6.0"
-Selene = "kampfkarren/selene@0.32.0"
+Selene = "Kampfkarren/selene@0.32.0"
 
 [Packages]
