@@ -87,17 +87,12 @@ jobs:
           chmod +x chainlink
           sudo mv chainlink /usr/local/bin/
 
-      - name: ChainLink Install
+      - name: Linting & Styling
         shell: bash
-        run: chainlink install
-
-      - name: Check with Selene
-        shell: bash
-        run: $HOME/.chainlink/selene .
-
-      - name: Check formatting with Stylua
-        shell: bash
-        run: $HOME/.chainlink/stylua --check .
+        run: |
+          chainlink install
+          $HOME/.chainlink/selene .
+          $HOME/.chainlink/stylua --check .
 
       - name: ChainLink Publish
         shell: bash
