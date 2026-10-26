@@ -35,23 +35,17 @@ jobs:
         with:
           path: ./site
 
-      - name: Install Rokit
-        shell: bash
-        run: |
-          curl -sSf https://raw.githubusercontent.com/rojo-rbx/rokit/main/scripts/install.sh | bash
-          echo "$HOME/.rokit/bin" >> "$GITHUB_PATH"
-
-      - name: Install project tools
-        run: rokit install --no-trust-check
-
-      - name: Build with Rojo
-        run: rojo build --output RazorInput.rbxm
+      - name: ChainLink Build
+        uses: Sawblade-Entertainment/ChainLinkAction@main
+        with:
+          action: 'build'
+          output_file: 'RazorInput.rbxmx'
 
       - name: Upload release artifact
         uses: actions/upload-artifact@v7
         with:
           name: razorinput-build
-          path: RazorInput.rbxm
+          path: RazorInput.rbxmx
           if-no-files-found: error
 
   deploy:
@@ -79,25 +73,21 @@ jobs:
         id: deployment
         uses: actions/deploy-pages@v4
 
-      - name: Install Rokit
-        shell: bash
-        run: |
-          curl -sSf https://raw.githubusercontent.com/rojo-rbx/rokit/main/scripts/install.sh | bash
-          echo "$HOME/.rokit/bin" >> "$GITHUB_PATH"
+      - name: ChainLink Install
+        uses: Sawblade-Entertainment/ChainLinkAction@main
+        with:
+          action: 'install'
 
-      - name: Install project tools
-        run: rokit install --no-trust-check
-      
       - name: Check with Selene
         run: selene .
       
       - name: Check formatting with Stylua
         run: stylua --check .
 
-      - name: Publish to Wally
-        run: |
-          wally login --token=$WALLY_TOKEN
-          wally publish
+      - name: ChainLink Publish
+        uses: Sawblade-Entertainment/ChainLinkAction@main
+        with:
+          action: 'publish'
         env:
           WALLY_TOKEN: ${{ secrets.WALLY_TOKEN }}
   
