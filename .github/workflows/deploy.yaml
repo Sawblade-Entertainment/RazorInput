@@ -98,11 +98,8 @@ jobs:
         run: stylua --check .
 
       - name: ChainLink Publish
-        uses: Sawblade-Entertainment/ChainLinkAction@main
-        with:
-          action: 'publish'
-        env:
-          WALLY_TOKEN: ${{ secrets.WALLY_TOKEN }}
+        shell: bash
+        run: chainlink publish --token ${{ secrets.WALLY_TOKEN }}
   
   release:
     if: startsWith(github.ref, 'refs/tags/')
