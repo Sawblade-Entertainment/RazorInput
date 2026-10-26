@@ -91,17 +91,13 @@ jobs:
         shell: bash
         run: chainlink install
 
-      - name: Add ChainLink to PATH
-        shell: bash
-        run: echo "$HOME/.chainlink/bin" >> $GITHUB_PATH
-
       - name: Check with Selene
         shell: bash
-        run: selene .
+        run: $HOME/.chainlink/selene .
 
       - name: Check formatting with Stylua
         shell: bash
-        run: stylua --check .
+        run: $HOME/.chainlink/stylua --check .
 
       - name: ChainLink Publish
         shell: bash
