@@ -3,11 +3,12 @@ DisableBootstrap = true
 [Package]
   Name = "vibeonline/razorinput"
   Description = "Oversimplifying input handlers"
-  Version = "0.1.1"
+  Version = "0.1.2"
   License = "MIT"
+  Website = "https://sawblade-entertainment.github.io/RazorInput/"
 
 [Tools]
-StyLua = "JohnnyMorganz/StyLua@2.6.0"
-Selene = "Kampfkarren/selene@0.32.0"
+  StyLua = "JohnnyMorganz/StyLua@2.6.0"
+  Selene = "Kampfkarren/selene@0.32.0"
 
 [Packages]
