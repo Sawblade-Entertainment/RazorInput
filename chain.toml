@@ -3,7 +3,7 @@ DisableBootstrap = true
 [Package]
   Name = "vibeonline/razorinput"
   Description = "Oversimplifying input handlers"
-  Version = "0.1.2"
+  Version = "0.1.3"
   License = "MIT"
   Website = "https://sawblade-entertainment.github.io/RazorInput/"
 
